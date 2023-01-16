@@ -12,6 +12,9 @@ import jinja2
 from aiohttp import web
 from aiohttp_session import setup as session_setup
 from aiohttp_session.cookie_storage import EncryptedCookieStorage
+
+from aiohttp_middlewares import cors_middleware
+
 from cryptography import fernet
 
 from beacon import conf, load_logger
@@ -19,6 +22,8 @@ from beacon.request import ontologies
 from beacon.response import middlewares
 from beacon.request.routes import routes
 from beacon.db import client
+
+import aiohttp_cors
 
 LOG = logging.getLogger(__name__)
 
@@ -53,11 +58,17 @@ def main(path=None):
     # Configure the logging
     load_logger()
 
+
+
     # Configure the beacon
     beacon = web.Application(
         middlewares=[web.normalize_path_middleware(),
-                     middlewares.error_middleware]
+                     middlewares.error_middleware, ]
     )
+
+
+
+
     beacon.on_startup.append(initialize)
     beacon.on_cleanup.append(destroy)
 
@@ -77,9 +88,20 @@ def main(path=None):
         secret_key, cookie_name=middlewares.SESSION_STORAGE
     )
     session_setup(beacon, storage)
-
+    
     # Configure the endpoints
     beacon.add_routes(routes)
+
+    cors = aiohttp_cors.setup(beacon, defaults={
+    "*": aiohttp_cors.ResourceOptions(
+            allow_credentials=True,
+            expose_headers="*",
+            allow_headers="*",
+        )
+})
+
+    for route in list(beacon.router.routes()):
+        cors.add(route)
 
     # Configure HTTPS (or not)
     ssl_context = None

@@ -1,15 +1,20 @@
 import logging
 import sys
 import traceback
+import re
 
 # import aiohttp_csrf
 import aiohttp_jinja2
 from aiohttp import web
 
+
+
 LOG = logging.getLogger(__name__)
 
 CSRF_FIELD_NAME = 'csrf_token'
 SESSION_STORAGE = 'beacon_session'
+
+
 
 error_templates = {
     400: '400.html',

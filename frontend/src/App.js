@@ -1,14 +1,70 @@
 import React from 'react';
-
+import {
+  Col, Button, Container, Form, Navbar, Row
+} from 'react-bootstrap';
+import Nav from 'react-bootstrap/Nav';
 import './App.css';
+import Individuals from './components/Individuals';
+import Catalog from './components/Catalog';
+import { Outlet, Route, Routes, NavLink } from 'react-router-dom';
 
-import { Container } from 'react-bootstrap';
+
 
 function App () {
   return (
-    <Container className='pt-3'>
-      <h1>Rare Diseases</h1>
+    <Routes>
+    {/* changed */}
+    <Route
+        path='/'
+        element={
+          <Layout
+
+          />
+        }
+      >
+
+<Route path
+='individuals' element={<Individuals />} 
+
+
+/>
+<Route path
+='catalog' element={<Catalog />} />
+
+
+
+        </Route>
+
+
+       
+        
+
+
+  </Routes>
+  );
+}
+
+
+function Layout () { // changed
+
+
+  return (
+    <>        <Navbar bg="light" expand="lg">
+    <Container>
+      <Navbar.Brand href="/">Rare Diseases</Navbar.Brand>
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Collapse id="basic-navbar-nav">
+        <Nav className="me-auto">
+          <Nav.Link href="catalog">Catalog</Nav.Link>
+          <Nav.Link href="individuals">Individuals</Nav.Link>
+        </Nav>
+      </Navbar.Collapse>
     </Container>
+  </Navbar>
+  <Container className='pt-3'>
+      <Outlet />
+      </Container>
+      </>
   );
 }
 
