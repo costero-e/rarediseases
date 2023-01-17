@@ -2,6 +2,11 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react'; // changed
 
+import { Card } from 'react-bootstrap'; // new
+import { Image } from "react-bootstrap";
+import { Button } from 'react-bootstrap';
+import Search from './Search';
+import Table from 'react-bootstrap/Table';
 
 
 import { Col, Container, Row } from 'react-bootstrap';
@@ -12,35 +17,75 @@ function Catalog () {
   const [results, setResults] = useState([]);
 
 
-  useEffect(() => {
+
     const apiCall = async () => {
         try {
             const res = await axios.get(
                 apiEndpoint,
                 { headers: {  } }
             )
-            setResults(res.data);
-            console.log(res.data);
+            setResults(res.data.response.resultSets);
+            
+
         } catch (err) {
             console.log(err)
         }
     }
-    apiCall()
-}, []);
 
+
+
+const renderData = results.map((results) => {
+  return results.results.map(results =>
+
+    <Table responsive striped>
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Url</th>
+          <th>Created</th>
+          <th>Updated</th>
+          <th>Resource Types</th>
+          <th>Organisation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{results.id}</td>
+          <td>{results.name}</td>
+          <td>{results.description}</td>
+          <td>{results.externalUrl}</td>
+          <td>{results.createDateTime}</td>
+          <td>{results.updateDateTime}</td>
+          <td>{results.resourceTypes}</td>
+          <td>{results.organisation}</td>
+        </tr>
+
+      </tbody>
+    </Table>
+
+
+
+  )});
 
   return (
     <Container className='pt-3'>
       <h1>Catalog</h1>
       <p className='lead'>
-        Use the controls below to use the catalog and filter the results.
+      Click on the button 'Show' to show the rare diseases' catalog.
       </p>
       <Row>
-        <Col lg={8}>
-          {results} {/* changed */}
+      <Col lg={4}>
+          <Search apiCall={apiCall} /> {/* changed */}
         </Col>
-      </Row>
 
+      </Row>
+      <Row>
+      <Col lg={14} >
+          {renderData} {/* changed */}
+        </Col>
+        </Row>
     </Container>
   );
 }

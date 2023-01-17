@@ -8,5 +8,15 @@
       "updateDateTime": "16/12/23",
       "resourceTypes": "KnowledgeDatabase",
       "organisation": "European Genome-phenome Archive"
-      }
+      },
+      {
+        "id": "EGA2",
+        "name": "European Genome Phenome Archive",
+        "description": "The European Genome-phenome Archive (EGA) is a service for permanent archiving and sharing of personally identifiable genetic, phenotypic, and clinical data generated for the purposes of biomedical research projects or in the context of research-focused healthcare systems.",
+        "externalUrl": "https://ega-archive.org",
+        "createDateTime": "16/12/23",
+        "updateDateTime": "16/12/23",
+        "resourceTypes": "KnowledgeDatabase",
+        "organisation": "European Genome-phenome Archive"
+        }      
   ]

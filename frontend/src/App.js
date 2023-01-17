@@ -7,6 +7,7 @@ import './App.css';
 import Individuals from './components/Individuals';
 import Catalog from './components/Catalog';
 import { Outlet, Route, Routes, NavLink } from 'react-router-dom';
+import Card from 'react-bootstrap/Card';
 
 
 
@@ -61,6 +62,11 @@ function Layout () { // changed
       </Navbar.Collapse>
     </Container>
   </Navbar>
+  <Container className='pt-3'>
+  <Card style={{width: "350px", border: "none"}}>
+        <Card.Img variant="top" src="/ega.png" style={{width: "300px"}}/>
+      </Card>
+      </Container>
   <Container className='pt-3'>
       <Outlet />
       </Container>
