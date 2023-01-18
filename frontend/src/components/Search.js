@@ -1,19 +1,22 @@
 // client/src/components/Search.js
 
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Formik } from 'formik';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 
 
-function Search ({ apiCall }) { // changed
+function Search ({ apiCall, show, setShow }) {
     const onSubmit = async (values, actions) => {
+        setShow (false)
         await apiCall(
 
         );
+       
       };
   
     return (
+      
       <Formik
         initialValues={{
 
@@ -28,12 +31,13 @@ function Search ({ apiCall }) { // changed
 
           <Form.Group as={Row}>
             <Col>
-              <Button type='submit' variant='primary'>Show</Button>
+            {show &&  <Button className='thebestbutton' type='submit' variant='primary'>Show</Button>}
             </Col>
           </Form.Group>
         </Form>
       )}
     </Formik>
+
   );
 }
 

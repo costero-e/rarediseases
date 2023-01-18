@@ -13,28 +13,28 @@ import Card from 'react-bootstrap/Card';
 
 function App () {
   return (
+    <>
+  <Layout/>
     <Routes>
     {/* changed */}
     <Route
         path='/'
-        element={
-          <Layout
+        element={ <Catalog/> }
+        
+      />
 
-          />
-        }
-      >
+
+<Route path
+='catalog' element={<Catalog />} />
 
 <Route path
 ='individuals' element={<Individuals />} 
 
 
 />
-<Route path
-='catalog' element={<Catalog />} />
 
 
 
-        </Route>
 
 
        
@@ -42,6 +42,7 @@ function App () {
 
 
   </Routes>
+  </>
   );
 }
 
@@ -52,7 +53,7 @@ function Layout () { // changed
   return (
     <>        <Navbar bg="light" expand="lg">
     <Container>
-      <Navbar.Brand href="/">Rare Diseases</Navbar.Brand>
+      <Navbar.Brand href="https://vp.ejprarediseases.org/"><img style={{height: "48px"}} src="/rarediseases.png" alt="RareDiseases"/></Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="me-auto">
@@ -63,13 +64,11 @@ function Layout () { // changed
     </Container>
   </Navbar>
   <Container className='pt-3'>
-  <Card style={{width: "350px", border: "none"}}>
-        <Card.Img variant="top" src="/ega.png" style={{width: "300px"}}/>
-      </Card>
+        <a  href="https://ega-archive.org/">
+        <Card.Img variant="top" src="/ega.png" style={{width: "230px", position: "relative", left: "40%", padding: "10px"}}/>
+      </a>
       </Container>
-  <Container className='pt-3'>
-      <Outlet />
-      </Container>
+
       </>
   );
 }
