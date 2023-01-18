@@ -2,7 +2,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react'; // changed
 
-import { Card } from 'react-bootstrap'; // new
+import { Breadcrumb, Card } from 'react-bootstrap'; // new
 import { Image } from "react-bootstrap";
 import { Button } from 'react-bootstrap';
 import Search from './Search';
@@ -13,8 +13,9 @@ import { Col, Container, Row } from 'react-bootstrap';
 
 const apiEndpoint = 'http://localhost:5050/api/catalogs/'
 
-function Catalog () {
+function Catalog ( ) {
   const [results, setResults] = useState([]);
+  const [show, setShow] = useState (true)
 
 
 
@@ -36,14 +37,14 @@ function Catalog () {
 
 const renderData = results.map((results) => {
   return results.results.map(results =>
-
+    <div id="scroll"> 
     <Table responsive striped>
       <thead>
         <tr>
           <th>Id</th>
           <th>Name</th>
           <th>Description</th>
-          <th>Url</th>
+          <th class="urlcolumn">Url</th>
           <th>Created</th>
           <th>Updated</th>
           <th>Resource Types</th>
@@ -55,7 +56,7 @@ const renderData = results.map((results) => {
           <td>{results.id}</td>
           <td>{results.name}</td>
           <td>{results.description}</td>
-          <td>{results.externalUrl}</td>
+          <td><a href= {`${results.externalUrl}`}>{results.externalUrl} </a> </td>
           <td>{results.createDateTime}</td>
           <td>{results.updateDateTime}</td>
           <td>{results.resourceTypes}</td>
@@ -64,20 +65,19 @@ const renderData = results.map((results) => {
 
       </tbody>
     </Table>
-
-
+    </div>
 
   )});
 
   return (
     <Container className='pt-3'>
       <h1>Catalog</h1>
-      <p className='lead'>
-      Click on the button 'Show' to show the rare diseases' catalog.
-      </p>
+      {show && <p className='lead'>
+      Click on the 'Show' button to show the rare diseases' catalog.
+      </p>}
       <Row>
       <Col lg={4}>
-          <Search apiCall={apiCall} /> {/* changed */}
+          <Search apiCall={apiCall} show={show} setShow={setShow} /> {/* changed */}
         </Col>
 
       </Row>
